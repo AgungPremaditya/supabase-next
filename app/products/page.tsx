@@ -8,7 +8,7 @@ export default async function Page() {
     const products = await getProducts();
 
     return (
-        <div className="container py-12 place-content-center">
+        <div className="container px-6 py-4">
             <Cards title="Products" description="Manage your products">
                 <DataTable columns={columns} data={products} />
             </Cards>

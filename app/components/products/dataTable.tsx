@@ -27,9 +27,9 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({
-    columns, 
+    columns,
     data,
-}: DataTableProps<TData, TValue> ) {
+}: DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
         columns,
@@ -93,19 +93,19 @@ export function DataTable<TData, TValue>({
                     size="icon"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
-                    >
-                    <ChevronLeftIcon/>
+                >
+                    <ChevronLeftIcon />
                 </Button>
                 <Button
                     variant="outline"
                     size="icon"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
-                    >
-                    <ChevronRightIcon/>
+                >
+                    <ChevronRightIcon />
                 </Button>
             </div>
         </div>
-        
+
     )
 }
