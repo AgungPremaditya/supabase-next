@@ -10,14 +10,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react"
 import { PlusIcon } from "@heroicons/react/16/solid";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface CardsProps {
     title: string
     description: string
+    urlCreate: string
     children: React.ReactNode
 }
 
-export default function Cards({ title, description, children }: CardsProps) {
+export default function Cards({ title, description, urlCreate, children, }: CardsProps) {
+    const pathName = usePathname()
+    const isIndex = !pathName?.includes("/", 1)
+
     return (
         <div>
             <Card>
@@ -27,9 +33,13 @@ export default function Cards({ title, description, children }: CardsProps) {
                             <CardTitle>{title}</CardTitle>
                             <CardDescription>{description}</CardDescription>
                         </div>
-                        <div>
-                            <Button className="mb-4">Add Product <PlusIcon /></Button>
-                        </div>
+                        {isIndex && (
+                            <div>
+                                <Button className="mb-4" asChild>
+                                    <a href={urlCreate}>Add Product <PlusIcon /></a>
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 </CardHeader>
                 <CardContent>
