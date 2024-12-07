@@ -4,14 +4,6 @@ import { Database } from "@/types/supabase";
 type Product = Database['public']['Tables']['products']['Row']
 export type SortField = 'name' | 'purchase_price' | 'selling_price' | 'stock' | 'created_at'
 
-export async function getProducts(): Promise<Product[]> {
-    const { data, error } = await supabase.from('products').select('*');
-
-    if (error) throw error
-
-    return data as Product[]
-}
-
 export async function paginations(
     page: number = 1, 
     limit: number = 3,
@@ -21,7 +13,7 @@ export async function paginations(
     const from = (page - 1) * limit
     const to = page * limit - 1
 
-    console.log(sort, order, "getProducts")
+    console.log({ "Page Entity": from, to, sort, order })
 
     const [products, count] = await Promise.all([
         supabase
@@ -35,8 +27,6 @@ export async function paginations(
     ])
 
     if (products.error) throw products.error
-
-    console.log(products.data)
 
     return {
         products: products.data as Product[],

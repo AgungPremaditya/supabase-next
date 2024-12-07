@@ -40,7 +40,7 @@ export default function Page() {
 
     return (
         <div className="container px-6 py-4">
-            <Cards title="Products" description="Manage your products">
+            <Cards title="Products" description="Manage your products" urlCreate="/products/create" >
                 <DataTable
                     columns={columns}
                     data={products}
@@ -51,6 +51,6 @@ export default function Page() {
                     onSortingChange={handleSorting}
                 />
             </Cards>
-        </div>
+        </div >
     )
 }

@@ -10,14 +10,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react"
 import { PlusIcon } from "@heroicons/react/16/solid";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface CardsProps {
     title: string
     description: string
-    urlCreate: string
     children: React.ReactNode
+    urlCreate?: string
 }
 
 export default function Cards({ title, description, urlCreate, children, }: CardsProps) {
