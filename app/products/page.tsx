@@ -39,7 +39,7 @@ export default function Page() {
     }
 
     return (
-        <div className="container px-6 py-4">
+        <div>
             <Cards title="Products" description="Manage your products" urlCreate="/products/create" >
                 <DataTable
                     columns={columns}

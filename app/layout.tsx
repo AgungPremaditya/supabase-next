@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./components/general/dark-mode/providers";
 import { AppSidebar } from "./components/general/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Navigation } from "./components/general/navigation";
 
 export const metadata: Metadata = {
     title: "POS - Services",
@@ -22,7 +23,13 @@ export default function RootLayout({
                     <Providers>
                         <SidebarProvider>
                             <AppSidebar />
-                            {children}
+                            <main className="container px-8 py-8">
+                                <div className="mb-8 flex items-center gap-4">
+                                    <SidebarTrigger />
+                                    <Navigation />
+                                </div>
+                                {children}
+                            </main>
                         </SidebarProvider>
                     </Providers>
                 </body>

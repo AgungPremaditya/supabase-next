@@ -34,7 +34,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
 
     if (loading) return <div>Loading...</div>
     return (
-        <div className="container px-6 py-4">
+        <div>
             <Cards title="Edit Product" description="Edit a product" >
                 <ProductForm data={product} isEdit={true} />
             </Cards>
