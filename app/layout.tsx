@@ -23,7 +23,7 @@ export default function RootLayout({
                     <Providers>
                         <SidebarProvider>
                             <AppSidebar />
-                            <main className="container px-8 py-8">
+                            <main className="w-full px-8 py-8">
                                 <div className="mb-8 flex items-center gap-4">
                                     <SidebarTrigger />
                                     <Navigation />
