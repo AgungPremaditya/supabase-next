@@ -132,14 +132,14 @@ export const columns: ColumnDef<Product>[] = [
         accessorKey: "action",
         header: "Action",
         cell: ({ row }) => {
-            const id = row.original.id
+            const slug = row.original.slug
             return (
                 <div className="flex gap-2">
                     <Button size="icon" variant="destructive">
                         <TrashIcon />
                     </Button>
                     <Button size="icon">
-                        <a href={`/products/${id}/edit`}>
+                        <a href={`/products/${slug}/edit`}>
                             <PencilSquareIcon />
                         </a>
                     </Button>

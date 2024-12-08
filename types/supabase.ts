@@ -41,6 +41,7 @@ export type Database = {
           name: string
           purchase_price: number
           selling_price: number
+          slug: string
           stock: number
         }
         Insert: {
@@ -49,6 +50,7 @@ export type Database = {
           name: string
           purchase_price?: number
           selling_price?: number
+          slug: string
           stock?: number
         }
         Update: {
@@ -57,6 +59,7 @@ export type Database = {
           name?: string
           purchase_price?: number
           selling_price?: number
+          slug?: string
           stock?: number
         }
         Relationships: []
@@ -173,4 +176,3 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
-

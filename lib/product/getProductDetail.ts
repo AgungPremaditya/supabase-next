@@ -3,11 +3,11 @@ import { Database } from "@/types/supabase";
 
 type Product = Database['public']['Tables']['products']['Row']
 
-export async function getProductDetail(id: string): Promise<Product> {
+export async function getProductDetail(slug: string): Promise<Product> {
     const { data, error } = await supabase
         .from('products')
         .select('*')
-        .eq('id', id)
+        .eq('slug', slug)
         .single()
 
     if (error) throw error

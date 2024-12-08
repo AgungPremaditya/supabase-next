@@ -12,7 +12,7 @@ export async function createProduct({ name, purchasePrice, sellingPrice, stock, 
             purchase_price: purchasePrice,
             selling_price: sellingPrice,
             stock,
-            slug,
+            slug: slug || '',
         })
         .select()
 

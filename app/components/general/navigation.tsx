@@ -5,6 +5,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { titleCaseWord } from "@/helper";
 import { Slash } from "lucide-react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -23,7 +24,7 @@ export function Navigation() {
             .filter(path => path !== '')
             .map((segment, index) => ({
                 href: `/${segment}`,
-                label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ''),
+                label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
                 key: `${segment}-${index}`
             }))
     ]
@@ -40,9 +41,9 @@ export function Navigation() {
                         )}
                         <BreadcrumbItem key={path.key}>
                             {index === paths.length - 1 ? (
-                                <BreadcrumbPage>{path.label}</BreadcrumbPage>
+                                <BreadcrumbPage>{titleCaseWord(path.label)}</BreadcrumbPage>
                             ) : (
-                                <BreadcrumbLink href={path.href}>{path.label}</BreadcrumbLink>
+                                <BreadcrumbLink href={path.href}>{titleCaseWord(path.label)}</BreadcrumbLink>
                             )}
                         </BreadcrumbItem>
                     </React.Fragment>
