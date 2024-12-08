@@ -10,7 +10,7 @@ import { PencilSquareIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -27,7 +27,8 @@ const formSchema = z.object({
     })),
     stock: z.preprocess(Number, z.number().min(0, {
         message: "Stock is required",
-    }))
+    })),
+    slug: z.string().optional(),
 })
 
 interface ProductFormProps {
@@ -39,18 +40,27 @@ export function ProductForm({ data, isEdit }: ProductFormProps) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log(data)
-
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            id: isEdit ? data?.id : "",
-            name: isEdit ? data?.name : "",
-            purchasePrice: isEdit ? data?.purchasePrice : 0,
-            sellingPrice: isEdit ? data?.sellingPrice : 0,
-            stock: isEdit ? data?.stock : 0,
+            id: isEdit ? data?.id ?? "" : "",
+            name: isEdit ? data?.name ?? "" : "",
+            purchasePrice: isEdit ? data?.purchasePrice ?? 0 : 0,
+            sellingPrice: isEdit ? data?.sellingPrice ?? 0 : 0,
+            stock: isEdit ? data?.stock ?? 0 : 0,
+            slug: isEdit ? data?.slug ?? "" : "",
         },
     });
+
+    const nameValue = form.watch("name");
+    useEffect(() => {
+        const slug = nameValue
+            ?.toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
+
+        form.setValue("slug", slug);
+    }, [nameValue, form]);
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
@@ -78,19 +88,35 @@ export function ProductForm({ data, isEdit }: ProductFormProps) {
         <div className="pr-32 flex flex-col gap-4">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Product Name" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="flex gap-4">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem className="w-1/2">
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Product Name" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="slug"
+                            render={({ field }) => (
+                                <FormItem className="w-1/2">
+                                    <FormLabel>Slug</FormLabel>
+                                    <FormControl>
+                                        <Input readOnly placeholder="Product Slug" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
                     <div className="flex gap-4">
                         <FormField
                             control={form.control}

@@ -4,4 +4,5 @@ export type ProductRequest = {
     purchasePrice: number;
     sellingPrice: number;
     stock: number;
+    slug?: string;
 }

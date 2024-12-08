@@ -4,14 +4,15 @@ import { ProductRequest } from "../data/product/ProductRequest";
 
 type Product = Database['public']['Tables']['products']['Row']
 
-export async function createProduct({ name, purchasePrice, sellingPrice, stock }: ProductRequest): Promise<Product> {
+export async function createProduct({ name, purchasePrice, sellingPrice, stock, slug }: ProductRequest): Promise<Product> {
     const { data, error } = await supabase
         .from('products')
         .insert({
             name,
             purchase_price: purchasePrice,
             selling_price: sellingPrice,
-            stock
+            stock,
+            slug,
         })
         .select()
 
